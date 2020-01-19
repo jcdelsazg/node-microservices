@@ -8,6 +8,15 @@ const feedbackRoute = require('./feedback');
 module.exports = (param) => {
   const { speakers } = param;
 
+  router.get('/images/:type/:file', async (req, res, next) => {
+    try {
+      const image = await speakers.getImage(`${req.params.type}/${req.params.file}`);
+      return image.pipe(res);
+    } catch (error) {
+      return next(error);
+    }
+  });
+
   router.get('/', async (req, res, next) => {
     try {
       const promises = [];
@@ -19,7 +28,7 @@ module.exports = (param) => {
       return res.render('index', {
         page: 'Home',
         speakerslist: results[0],
-        artwork: results[1],
+        artwork: results[1]
       });
     } catch (err) {
       return next(err);
