@@ -1,15 +1,12 @@
 /* eslint-disable class-methods-use-this */
 /* eslint-disable arrow-body-style */
 /* eslint-disable arrow-parens */
-const fs = require('fs');
-const util = require('util');
 const axios = require('axios');
 
-const readFile = util.promisify(fs.readFile);
-
 class SpeakersService {
-  constructor(datafile) {
-    this.datafile = datafile;
+  constructor({ serviceRegistryUrl, serviceVersionIdentifier }) {
+    this.serviceRegistryUrl = serviceRegistryUrl;
+    this.serviceVersionIdentifier = serviceVersionIdentifier;
   }
 
   async getNames() {
@@ -66,7 +63,9 @@ class SpeakersService {
   }
 
   async getService(servicename) {
-    const response = await axios.get(`http://localhost:3000/find/${servicename}/1`);
+    const response = await axios.get(
+      `${this.serviceRegistryUrl}/find/${servicename}/${this.serviceVersionIdentifier}`
+    );
     return response.data;
   }
 }
