@@ -8,6 +8,7 @@ class ServiceRegistry {
   }
 
   get(name, version) {
+    this.cleanUp();
     const candidates = Object.values(this.services).filter((service) => {
       return service.name === name && semver.satisfies(service.version, version);
     });
@@ -16,6 +17,7 @@ class ServiceRegistry {
   }
 
   register(name, version, ip, port) {
+    this.cleanUp();
     const key = name + version + ip + port;
 
     if (!this.services[key]) {
@@ -37,6 +39,16 @@ class ServiceRegistry {
     const key = name + version + ip + port;
     delete this.services[key];
     return key;
+  }
+
+  cleanUp() {
+    const now = Math.floor(new Date() / 1000);
+    Object.keys(this.services).forEach((key) => {
+      if (this.services[key].timestamp + this.timeout < now) {
+        delete this.services[key];
+        this.log.debug(`Service with key:${key} removed`);
+      }
+    });
   }
 }
 
