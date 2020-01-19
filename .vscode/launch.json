@@ -7,7 +7,14 @@
     {
       "type": "node",
       "request": "launch",
-      "name": "Launch Program",
+      "name": "Launch speakers service",
+      "skipFiles": ["<node_internals>/**"],
+      "program": "${workspaceFolder}\\speakers-service\\bin\\run"
+    },
+    {
+      "type": "node",
+      "request": "launch",
+      "name": "Launch registry service",
       "skipFiles": ["<node_internals>/**"],
       "program": "${workspaceFolder}\\service-registry\\bin\\run"
     }
