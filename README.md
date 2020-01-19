@@ -17,7 +17,7 @@ Microservices in NodeJS - Juan Carlos Del Saz (jcdelsazg)
   - Main app use for testing and showing the information provided by the microservices
   
 
-##HOW TO RUN
+## HOW TO RUN
 
 1. Enter in every microservice folder and run npm install for installing the dependencies 
 2. If you're using visual studio code, import the entire repository and use the debug button for start the microservices, 
